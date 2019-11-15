@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import seedColors from "./seedColors.js";
 import Palette from "./Palette";
 import PaletteList from "./PaletteList";
+
 import { generatePalette } from "./colorHelpers";
 
 function App() {
