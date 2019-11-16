@@ -9,7 +9,7 @@ const styles = {
         padding: "0.5rem",
         position: "relative",
         overflow: "hidden",
-        "& hover": {
+        "&:hover": {
             cursor: "pointer"
         }
     },
