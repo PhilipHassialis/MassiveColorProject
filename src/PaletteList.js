@@ -33,7 +33,13 @@ const styles = {
     }
 };
 
-const PaletteList = ({ palettes, classes }) => {
+const PaletteList = props => {
+    const { palettes, classes } = props;
+
+    const goToPalette = id => {
+        props.history.push(`/palette/${id}`);
+    };
+
     return (
         <div className={classes.root}>
             <div className={classes.container}>
@@ -42,7 +48,11 @@ const PaletteList = ({ palettes, classes }) => {
                 </nav>
                 <div className={classes.palettes}>
                     {palettes.map(palette => (
-                        <MiniPalette {...palette} />
+                        <MiniPalette
+                            key={palette.id}
+                            {...palette}
+                            handleClick={() => goToPalette(palette.id)}
+                        />
                     ))}
                 </div>
             </div>
