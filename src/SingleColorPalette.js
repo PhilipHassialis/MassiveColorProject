@@ -30,7 +30,7 @@ const SingleColorPalette = props => {
             background={color[format.format]}
             name={color.name}
             id={color.id}
-            showLink={false}
+            showingFullPalette={false}
         />
     ));
 
