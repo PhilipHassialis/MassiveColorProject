@@ -74,11 +74,13 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const NewPaletteForm = () => {
+const NewPaletteForm = props => {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [currentColor, setCurrentColor] = React.useState("teal");
-    const [colors, setColors] = React.useState([{ color: "blue", name: "blue" }]);
+    const [colors, setColors] = React.useState([
+        { color: "blue", name: "blue" }
+    ]);
     const [newName, setNewName] = React.useState("");
 
     const handleDrawerOpen = () => {
@@ -101,16 +103,32 @@ const NewPaletteForm = () => {
 
     React.useEffect(() => {
         ValidatorForm.addValidationRule("isColorNameUnique", value =>
-            colors.every(({ name }) => name.toLowerCase() !== value.toLowerCase())
+            colors.every(
+                ({ name }) => name.toLowerCase() !== value.toLowerCase()
+            )
         );
-        ValidatorForm.addValidationRule("isColorUnique", value => colors.every(({ color }) => color !== currentColor));
-    }, [colors]);
+        ValidatorForm.addValidationRule("isColorUnique", value =>
+            colors.every(({ color }) => color !== currentColor)
+        );
+    }, [colors, currentColor]);
+
+    const handleSubmit = () => {
+        let newName = "New Test Palette";
+        const newPalette = {
+            paletteName: newName,
+            id: newName.toLowerCase().replace(/ /g, "-"),
+            colors
+        };
+        props.savePalette(newPalette);
+        props.history.push("/");
+    };
 
     return (
         <div className={classes.root}>
             <CssBaseline />
             <AppBar
                 position="fixed"
+                color="default"
                 className={clsx(classes.appBar, {
                     [classes.appBarShift]: open
                 })}
@@ -121,13 +139,23 @@ const NewPaletteForm = () => {
                         aria-label="open drawer"
                         onClick={handleDrawerOpen}
                         edge="start"
-                        className={clsx(classes.menuButton, open && classes.hide)}
+                        className={clsx(
+                            classes.menuButton,
+                            open && classes.hide
+                        )}
                     >
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap>
                         Persistent drawer
                     </Typography>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleSubmit}
+                    >
+                        Save Palette
+                    </Button>
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -167,9 +195,17 @@ const NewPaletteForm = () => {
                         // validators={["required", "isColorNameUnique", "isColorUnique"]}
                         validators={["required", "isColorNameUnique"]}
                         // errorMessages={["Color name is required", "Color name must be unique", "Color must be unique"]}
-                        errorMessages={["Color name is required", "Color name must be unique"]}
+                        errorMessages={[
+                            "Color name is required",
+                            "Color name must be unique"
+                        ]}
                     />
-                    <Button variant="contained" color="primary" style={{ backgroundColor: currentColor }} type="submit">
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        style={{ backgroundColor: currentColor }}
+                        type="submit"
+                    >
                         Add Color
                     </Button>
                 </ValidatorForm>
@@ -182,7 +218,11 @@ const NewPaletteForm = () => {
                 <div className={classes.drawerHeader} />
 
                 {colors.map(color => (
-                    <DraggableColorBox color={color.color} name={color.name} />
+                    <DraggableColorBox
+                        key={color.color}
+                        color={color.color}
+                        name={color.name}
+                    />
                 ))}
             </main>
         </div>
