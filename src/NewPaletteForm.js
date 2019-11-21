@@ -99,6 +99,12 @@ const NewPaletteForm = props => {
         setNewColorName("");
     };
 
+    const removeColor = colorName => {
+        let newColors = [...colors];
+        newColors = newColors.filter(color => color.name !== colorName);
+        setColors([...newColors]);
+    };
+
     const handleChange = e => {
         switch (e.target.name) {
             case "newColorName":
@@ -250,9 +256,10 @@ const NewPaletteForm = props => {
 
                 {colors.map(color => (
                     <DraggableColorBox
-                        key={color.color}
+                        key={color.name}
                         color={color.color}
                         name={color.name}
+                        handleClick={() => removeColor(color.name)}
                     />
                 ))}
             </main>
