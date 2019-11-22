@@ -12,8 +12,9 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { ChromePicker } from "react-color";
 import Button from "@material-ui/core/Button";
-import DraggableColorBox from "./DraggableColorBox";
+import DraggableColorList from "./DraggableColorList";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import { arrayMove } from "react-sortable-hoc";
 
 const drawerWidth = 400;
 
@@ -116,6 +117,10 @@ const NewPaletteForm = props => {
             default:
                 break;
         }
+    };
+
+    const onSortEnd = ({ oldIndex, newIndex }) => {
+        setColors(arrayMove(colors, oldIndex, newIndex));
     };
 
     React.useEffect(() => {
@@ -229,13 +234,21 @@ const NewPaletteForm = props => {
                         value={newColorName}
                         name="newColorName"
                         onChange={handleChange}
-                        // validators={["required", "isColorNameUnique", "isColorUnique"]}
+                        // validators={[
+                        //     "required",
+                        //     "isColorNameUnique",
+                        //     "isColorUnique"
+                        // ]}
                         validators={["required", "isColorNameUnique"]}
-                        // errorMessages={["Color name is required", "Color name must be unique", "Color must be unique"]}
                         errorMessages={[
                             "Color name is required",
-                            "Color name must be unique"
+                            "Color name must be unique",
+                            "Color must be unique"
                         ]}
+                        // errorMessages={[
+                        //     "Color name is required",
+                        //     "Color name must be unique"
+                        // ]}
                     />
                     <Button
                         variant="contained"
@@ -253,15 +266,12 @@ const NewPaletteForm = props => {
                 })}
             >
                 <div className={classes.drawerHeader} />
-
-                {colors.map(color => (
-                    <DraggableColorBox
-                        key={color.name}
-                        color={color.color}
-                        name={color.name}
-                        handleClick={() => removeColor(color.name)}
-                    />
-                ))}
+                <DraggableColorList
+                    onSortEnd={onSortEnd}
+                    colors={colors}
+                    removeColor={removeColor}
+                    axis="xy"
+                />
             </main>
         </div>
     );
