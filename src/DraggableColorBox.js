@@ -14,7 +14,8 @@ const styles = {
         "&:hover svg": {
             color: "white",
             transform: "scale(1.5)"
-        }
+        },
+        marginBottom: "-5px"
     },
     boxContent: {
         position: "absolute",
