@@ -10,11 +10,18 @@ import SingleColorPalette from "./SingleColorPalette";
 import NewPaletteForm from "./NewPaletteForm";
 
 function App() {
-    const [palettes, setPalettes] = React.useState(seedColors);
+    const savedPalettes = JSON.parse(window.localStorage.getItem("palettes"));
+    const [palettes, setPalettes] = React.useState(savedPalettes || seedColors);
     const findPalette = id => palettes.find(palette => palette.id === id);
+
     const savePalette = newPalette => {
         setPalettes([...palettes, newPalette]);
     };
+
+    React.useEffect(() => {
+        window.localStorage.setItem("palettes", JSON.stringify(palettes));
+    }, [palettes]);
+
     return (
         <Switch>
             <Route
