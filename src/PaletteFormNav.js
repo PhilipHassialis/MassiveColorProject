@@ -58,8 +58,12 @@ const PaletteFormNav = props => {
     const classes = useStyles();
     const [formShowing, setFormShowing] = React.useState(false);
 
-    const handleClickOpen = () => {
+    const showForm = () => {
         setFormShowing(true);
+    };
+
+    const hideForm = () => {
+        setFormShowing(false);
     };
 
     return (
@@ -103,7 +107,7 @@ const PaletteFormNav = props => {
                         className={classes.button}
                         variant="contained"
                         color="primary"
-                        onClick={handleClickOpen}
+                        onClick={showForm}
                     >
                         Save
                     </Button>
@@ -113,6 +117,7 @@ const PaletteFormNav = props => {
                 <PalettteMetaForm
                     palettes={palettes}
                     handleSubmit={handleSubmit}
+                    hideForm={hideForm}
                 />
             )}
         </div>
