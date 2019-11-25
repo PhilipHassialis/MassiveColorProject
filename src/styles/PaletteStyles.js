@@ -1,14 +1,23 @@
-import sizes from "./sizes";
+import sizes from "./sizes"
 
 export default {
+    "@global": {
+        ".fade-exit": {
+            opacity: 1,
+        },
+        ".fade-exit-active": {
+            opacity: 0,
+            transition: "opacity 500ms ease-out",
+        },
+    },
     Palette: {
         height: "100vh",
         display: "flex",
         flexDirection: "column",
-        overflow: "hidden"
+        overflow: "hidden",
     },
     PaletteColors: {
-        height: "90%"
+        height: "90%",
     },
     goBack: {
         width: "20%",
@@ -37,19 +46,19 @@ export default {
             lineHeight: "30px",
             textTransform: "uppercase",
             border: "none",
-            textDecoration: "none"
+            textDecoration: "none",
         },
         [sizes.down("lg")]: {
             width: "25%",
-            height: "33.333%"
+            height: "33.333%",
         },
         [sizes.down("md")]: {
             width: "50%",
-            height: "20%"
+            height: "20%",
         },
         [sizes.down("xs")]: {
             width: "100%",
-            height: "10%"
-        }
-    }
-};
+            height: "10%",
+        },
+    },
+}

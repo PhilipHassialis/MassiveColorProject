@@ -32,6 +32,7 @@ const PalettteMetaForm = props => {
         console.log(emoji.native);
         const newPalette = { newPaletteName, emoji: emoji.native };
         handleSubmit(newPalette);
+        setOpen("");
     };
 
     React.useEffect(() => {
@@ -77,7 +78,7 @@ const PalettteMetaForm = props => {
                             margin="normal"
                             errorMessages={[
                                 "Palette name is required",
-                                "Palette name already used"
+                                "Palette name already used",
                             ]}
                         />
                     </DialogContent>
