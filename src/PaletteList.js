@@ -1,21 +1,21 @@
-import React from "react";
-import MiniPalette from "./MiniPalette";
-import { withStyles } from "@material-ui/styles";
-import styles from "./styles/PaletteListStyles";
-import { Link } from "react-router-dom";
+import React from "react"
+import MiniPalette from "./MiniPalette"
+import { withStyles } from "@material-ui/styles"
+import styles from "./styles/PaletteListStyles"
+import { Link } from "react-router-dom"
 
 const PaletteList = props => {
-    const { palettes, classes, deletePalette } = props;
+    const { palettes, classes, deletePalette } = props
 
     const goToPalette = id => {
-        props.history.push(`/palette/${id}`);
-    };
+        props.history.push(`/palette/${id}`)
+    }
 
     return (
         <div className={classes.root}>
             <div className={classes.container}>
                 <nav className={classes.nav}>
-                    <h1>React colors</h1>
+                    <h1 className={classes.heading}>React colors</h1>
                     <Link to="/palette/new">Create new palette</Link>
                 </nav>
                 <div className={classes.palettes}>
@@ -31,7 +31,7 @@ const PaletteList = props => {
                 </div>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default withStyles(styles)(PaletteList);
+export default withStyles(styles)(PaletteList)
