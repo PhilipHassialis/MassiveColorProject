@@ -58,7 +58,7 @@ const PaletteList = props => {
                                 key={palette.id}
                                 id={palette.id}
                                 {...palette}
-                                handleClick={() => goToPalette(palette.id)}
+                                goToPalette={goToPalette}
                                 openDialog={openDialog}
                             />
                         </CSSTransition>
