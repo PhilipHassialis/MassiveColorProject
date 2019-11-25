@@ -1,70 +1,70 @@
-import React from "react";
-import clsx from "clsx";
-import useStyles from "./styles/NewPaletteFormStyles";
-import Drawer from "@material-ui/core/Drawer";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import Button from "@material-ui/core/Button";
-import DraggableColorList from "./DraggableColorList";
-import { arrayMove } from "react-sortable-hoc";
-import PaletteFormNav from "./PaletteFormNav";
-import ColorPickerForm from "./ColorPickerForm";
+import React from "react"
+import clsx from "clsx"
+import useStyles from "./styles/NewPaletteFormStyles"
+import Drawer from "@material-ui/core/Drawer"
+import Typography from "@material-ui/core/Typography"
+import Divider from "@material-ui/core/Divider"
+import IconButton from "@material-ui/core/IconButton"
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft"
+import Button from "@material-ui/core/Button"
+import DraggableColorList from "./DraggableColorList"
+import { arrayMove } from "react-sortable-hoc"
+import PaletteFormNav from "./PaletteFormNav"
+import ColorPickerForm from "./ColorPickerForm"
 
 const NewPaletteForm = props => {
-    const maxColors = 20;
-    const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
-    const { palettes } = props;
-    const [colors, setColors] = React.useState([...palettes[0].colors]);
+    const maxColors = 20
+    const classes = useStyles()
+    const [open, setOpen] = React.useState(false)
+    const { palettes } = props
+    const [colors, setColors] = React.useState([...palettes[0].colors])
 
-    const paletteIsFull = colors.length >= maxColors;
+    const paletteIsFull = colors.length >= maxColors
 
     const handleDrawerOpen = () => {
-        setOpen(true);
-    };
+        setOpen(true)
+    }
 
     const handleDrawerClose = () => {
-        setOpen(false);
-    };
+        setOpen(false)
+    }
 
     const addNewColor = newColor => {
-        setColors([...colors, newColor]);
-    };
+        setColors([...colors, newColor])
+    }
 
     const removeColor = colorName => {
-        let newColors = [...colors];
-        newColors = newColors.filter(color => color.name !== colorName);
-        setColors([...newColors]);
-    };
+        let newColors = [...colors]
+        newColors = newColors.filter(color => color.name !== colorName)
+        setColors([...newColors])
+    }
 
     const onSortEnd = ({ oldIndex, newIndex }) => {
-        setColors(arrayMove(colors, oldIndex, newIndex));
-    };
+        setColors(arrayMove(colors, oldIndex, newIndex))
+    }
 
     const clearColors = () => {
-        setColors([]);
-    };
+        setColors([])
+    }
 
     const addRandomColor = () => {
         // pick random color from existing palettes
-        const allColors = palettes.map(p => p.colors).flat();
-        let rand = Math.floor(Math.random() * allColors.length);
-        const randomColor = allColors[rand];
-        setColors([...colors, randomColor]);
-    };
+        const allColors = palettes.map(p => p.colors).flat()
+        let rand = Math.floor(Math.random() * allColors.length)
+        const randomColor = allColors[rand]
+        setColors([...colors, randomColor])
+    }
 
     const handleSubmit = palette => {
         const newPalette = {
             paletteName: palette.newPaletteName,
             id: palette.newPaletteName.toLowerCase().replace(/ /g, "-"),
             colors,
-            emoji: palette.emoji
-        };
-        props.savePalette(newPalette);
-        props.history.push("/");
-    };
+            emoji: palette.emoji,
+        }
+        props.savePalette(newPalette)
+        props.history.push("/")
+    }
 
     return (
         <div className={classes.root}>
@@ -80,7 +80,7 @@ const NewPaletteForm = props => {
                 anchor="left"
                 open={open}
                 classes={{
-                    paper: classes.drawerPaper
+                    paper: classes.drawerPaper,
                 }}
             >
                 <div className={classes.drawerHeader}>
@@ -121,7 +121,7 @@ const NewPaletteForm = props => {
             </Drawer>
             <main
                 className={clsx(classes.content, {
-                    [classes.contentShift]: open
+                    [classes.contentShift]: open,
                 })}
             >
                 <div className={classes.drawerHeader} />
@@ -130,10 +130,11 @@ const NewPaletteForm = props => {
                     colors={colors}
                     removeColor={removeColor}
                     axis="xy"
+                    distance={5}
                 />
             </main>
         </div>
-    );
-};
+    )
+}
 
-export default NewPaletteForm;
+export default NewPaletteForm
