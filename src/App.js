@@ -30,7 +30,11 @@ function App() {
         <Route
             render={({ location }) => (
                 <TransitionGroup>
-                    <CSSTransition classNames="page" timeout={1000}>
+                    <CSSTransition
+                        key={location.key}
+                        classNames="page"
+                        timeout={500}
+                    >
                         <Switch location={location}>
                             <Route
                                 path="/palette/new"
