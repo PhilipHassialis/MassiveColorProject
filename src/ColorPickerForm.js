@@ -46,7 +46,7 @@ const ColorPickerForm = props => {
                 }}
                 className={classes.picker}
             />
-            <ValidatorForm onSubmit={handleSubmit}>
+            <ValidatorForm onSubmit={handleSubmit} instantValidate={false}>
                 <TextValidator
                     value={newColorName}
                     variant="filled"
@@ -55,16 +55,16 @@ const ColorPickerForm = props => {
                     margin="normal"
                     placeholder="Color name"
                     className={classes.colorNameInput}
-                    // validators={[
-                    //     "required",
-                    //     "isColorNameUnique",
-                    //     "isColorUnique"
-                    // ]}
-                    validators={["required", "isColorNameUnique"]}
+                    validators={[
+                        "required",
+                        "isColorNameUnique",
+                        "isColorUnique",
+                    ]}
+                    // validators={["required", "isColorNameUnique"]}
                     errorMessages={[
                         "Color name is required",
                         "Color name must be unique",
-                        "Color must be unique"
+                        "Color must be unique",
                     ]}
                     // errorMessages={[
                     //     "Color name is required",
@@ -75,7 +75,7 @@ const ColorPickerForm = props => {
                     variant="contained"
                     color="primary"
                     style={{
-                        backgroundColor: paletteIsFull ? "grey" : currentColor
+                        backgroundColor: paletteIsFull ? "grey" : currentColor,
                     }}
                     type="submit"
                     disabled={paletteIsFull}
